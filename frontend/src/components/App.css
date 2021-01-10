@@ -1,0 +1,16 @@
+.app {
+  text-align: center;
+}
+
+.input {
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 8px;
+}
+
+.submit {
+  margin: 0 auto;
+  display: block;
+}

@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "yarn build-backend && yarn build-frontend",
+    "build-backend": "yarn --cwd backend --production=false && yarn --cwd backend tsc && yarn --cwd backend --production=true",
+    "build-frontend": "yarn --cwd frontend --production=false && yarn --cwd frontend build && yarn rimraf frontend/node_modules",
+    "start": "yarn --cwd backend start"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  },
+  "engines": {
+    "node": "15.x"
+  }
+}
