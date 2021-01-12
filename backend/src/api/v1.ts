@@ -39,8 +39,24 @@ router.post("/api/v1/books", async (ctx) => {
 });
 
 router.get("/api/v1/questions", async (ctx) => {
+  const query: { book: string } = ctx.query;
+
+  if (typeof query.book !== "string") {
+    ctx.status = 400;
+    ctx.body = "Invalid body";
+    return;
+  }
+
+  let book = query.book === "null" ? null : parseInt(query.book, 10);
+
+  if (!(book === null || !Number.isNaN(book))) {
+    ctx.status = 400;
+    ctx.body = "Invalid body";
+    return;
+  }
+
   try {
-    const questions = await db.getQuestions();
+    const questions = await db.getQuestions(book);
     ctx.status = 200;
     ctx.body = questions;
   } catch (error) {

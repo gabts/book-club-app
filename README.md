@@ -1,13 +1,7 @@
-Book Club App
+# Book Club App
 
-A book club backend and frontend that can be deployed to heroku.
+A book club web application complete with backend and frontend.
 
 ## Development
 
-See separate backend and frontend packages.
-
-## Deployment
-
-- Setup a heroku project.
-- Setup heroku-postgres database add-on for project.
-- Follow deploy instructions on heroku.
+See separate [backend](./backend/README.md) and [frontend](./frontend/README.md) packages.

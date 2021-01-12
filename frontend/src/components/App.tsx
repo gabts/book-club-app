@@ -8,7 +8,7 @@ export function App() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch("/api/v1/questions");
+      const response = await fetch("/api/v1/questions?book=null");
       const json = await response.json();
       setQuestions(json.sort(() => Math.random() - 0.5));
       setQuestionIndex(0);
@@ -36,7 +36,7 @@ export function App() {
       const response = await fetch("/api/v1/questions", {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ book: null, text }),
       });
 
       if (response.status === 201) {

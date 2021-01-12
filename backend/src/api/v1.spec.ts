@@ -144,9 +144,19 @@ describe("api v1", () => {
   });
 
   it("gets questions", async () => {
+    const book: types.BookInput = {
+      author: "George R. R. Martin",
+      title: "A Game of Thrones",
+      year: 1996,
+    };
+
+    const bookResponse = await request(app.callback())
+      .post("/api/v1/books")
+      .send(book);
+
     const questions: types.QuestionInput[] = [
       { text: "First sample question", book: null },
-      { text: "Second sample question", book: null },
+      { text: "Second sample question", book: bookResponse.body.id },
       { text: "Third sample question", book: null },
     ];
 
@@ -154,19 +164,26 @@ describe("api v1", () => {
       await request(app.callback()).post("/api/v1/questions").send(question);
     }
 
-    const response = await request(app.callback())
-      .get("/api/v1/questions")
+    const questionsResponse = await request(app.callback())
+      .get(`/api/v1/questions?book=${bookResponse.body.id}`)
       .expect(200);
 
-    assert.ok(Array.isArray(response.body));
-    assert.strictEqual(response.body.length, questions.length);
+    assert.ok(Array.isArray(questionsResponse.body));
+    assert.strictEqual(questionsResponse.body.length, questions.length);
 
     for (let i = 0; i < questions.length; i++) {
-      const body: types.Question = response.body[i];
+      const body: types.Question = questionsResponse.body[i];
 
       assert.strictEqual(typeof body.id, "number");
       assert.strictEqual(body.book, questions[i].book);
       assert.strictEqual(body.text, questions[i].text);
     }
+
+    const questionsNullResponse = await request(app.callback())
+      .get("/api/v1/questions?book=null")
+      .expect(200);
+
+    assert.ok(Array.isArray(questionsNullResponse.body));
+    assert.strictEqual(questionsNullResponse.body.length, 2);
   });
 });

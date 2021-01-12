@@ -48,11 +48,7 @@ export async function addQuestion(input: types.QuestionInput) {
   }
 
   const insertionResult = await client.query<types.Question>(
-    `
-      INSERT INTO questions ( book, text )
-      VALUES ( $1, $2 )
-      RETURNING *;
-    `,
+    "INSERT INTO questions ( book, text ) VALUES ( $1, $2 ) RETURNING *;",
     [input.book, input.text]
   );
 
@@ -60,10 +56,11 @@ export async function addQuestion(input: types.QuestionInput) {
   return insertionResult.rows[0];
 }
 
-export async function getQuestions() {
+export async function getQuestions(book: null | number) {
   const client = await pool.connect();
   const result = await client.query<types.Question[]>(
-    "SELECT * FROM questions;"
+    "SELECT * FROM questions WHERE book = $1 OR book IS NULL;",
+    [book]
   );
   client.release();
   return result.rows;
