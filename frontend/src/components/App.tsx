@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import { BookRoute } from "./BookRoute";
 import { IndexRoute } from "./IndexRoute";
 import { Navigation } from "./Navigation";
@@ -7,13 +7,13 @@ import "./App.css";
 
 export function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Navigation />
       <Switch>
         <Route path="/book" component={BookRoute} />
         <Route path="/question" component={QuestionRoute} />
         <Route path="/" component={IndexRoute} />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
