@@ -1,0 +1,33 @@
+.nav {
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 1rem;
+}
+
+.nav__h1 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  text-decoration: underline;
+}
+
+.nav__link {
+  color: #212121;
+  display: block;
+  padding: 1rem 0.5rem;
+}
+
+.nav__link:hover {
+  color: #424242;
+}
+
+.nav__list {
+  display: flex;
+  font-weight: 500;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25rem;
+}
